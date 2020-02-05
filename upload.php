@@ -27,7 +27,7 @@ $mime_type = mime_content_type($uploaded_file);
 
 // Check if mime type is allowed
 if (!in_array($mime_type, array_keys($mime_types))) {
-    json_encode(['error' => 'image-not-supported']);
+    echo json_encode(['error' => 'image-not-supported']);
     exit;
 }
 
@@ -35,7 +35,7 @@ if (!in_array($mime_type, array_keys($mime_types))) {
 $is_svg = $mime_type == 'image/svg+xml' ? true : false;
 
 if (!$is_svg && !is_array(getimagesize($uploaded_file))) {
-    json_encode(['error' => 'could-not-get-size']);
+    echo json_encode(['error' => 'could-not-get-size']);
     exit;
 }
 
