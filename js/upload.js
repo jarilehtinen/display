@@ -29,7 +29,7 @@ var upload = {
         $('.display').on('dragleave', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            $('.display').removeClass('dropping');
+            display.reset();
         });
 
         // Drop image event
