@@ -40,7 +40,7 @@ if (!$is_svg && !is_array(getimagesize($uploaded_file))) {
 }
 
 // Move uploaded file
-$filename = 'image.'.$mime_types[$mime_type];
+$filename = 'images/image.'.$mime_types[$mime_type];
 
 if (move_uploaded_file($_FILES['file']['tmp_name'], $filename)) {
     echo json_encode(['ok' => 1]);
