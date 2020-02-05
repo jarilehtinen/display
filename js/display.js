@@ -44,6 +44,28 @@ var display = {
             dataType: 'json',
             url: 'ping.php',
             success: function(file) {
+                // No file found
+                if (file.noFile) {
+                    return false;
+                }
+
+                // Image hasn't updated
+                if (parent.lastUpdated && parent.lastUpdated === file.modified) {
+                    return false;
+                }
+
+                // Image has updated, preload it
+                parent.preloadImage(file);
+            }
+        });
+    },
+
+    preloadImage: function(file) {
+        var parent = this,
+            img = $('<img>').attr('src', file.url);
+
+        $(img).preload(function(percentage, done) {
+            if (done) {
                 parent.renderImage(file);
             }
         });
@@ -52,14 +74,8 @@ var display = {
     renderImage: function(file) {
         var parent = this;
 
-        if (file.noFile) {
-            return false;
-        }
-
-        if (!parent.lastUpdated || parent.lastUpdated < file.modified) {
-            $('.display').css('background-image', 'url('+file.url+')');
-            $('.display').removeClass('dropping');
-        }
+        $('.display').css('background-image', 'url('+file.url+')');
+        parent.reset();
 
         parent.lastUpdated = file.modified;
     },
@@ -72,3 +88,25 @@ var display = {
 $(function() {
     display.init();
 });
+
+/**
+ * Image preloader by yckart 
+ * https://stackoverflow.com/a/14461283
+ */
+$.fn.preload = function (callback) {
+    var length = this.length;
+    var iterator = 0;
+
+    return this.each(function () {
+        var self = this;
+        var tmp = new Image();
+
+        if (callback) {
+            tmp.onload = function () {
+                callback.call(self, 100 * ++iterator / length, iterator === length);
+            };
+        }
+
+        tmp.src = this.src;
+    });
+};
