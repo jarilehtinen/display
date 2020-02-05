@@ -39,7 +39,6 @@ var upload = {
 
             // Get dropped file
             var file = e.originalEvent.dataTransfer.files;
-            console.log(e.originalEvent.dataTransfer.files);
 
             // Create form data
             var formData = new FormData();
@@ -51,8 +50,6 @@ var upload = {
     },
 
     uploadImage: function(formData) {
-        console.log(formData);
-        
         $.ajax({
             url: 'upload.php',
             type: 'post',
@@ -61,7 +58,6 @@ var upload = {
             processData: false,
             dataType: 'json',
             success: function(result) {
-                console.log(result);
                 if (result.ok) {
                     display.updateImage();
                     return;
@@ -70,7 +66,6 @@ var upload = {
                 display.reset();
             },
             error: function(result) {
-                console.log(result);
                 display.reset();
             }
         });
