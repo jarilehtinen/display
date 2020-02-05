@@ -9,7 +9,7 @@ What's the easiest way to display an image on a screen? This is.
 3. Upload an image by dragging it on the page
 4. Click anywhere to go full screen
 
-Supports JPEG, PNG and GIF.
+Supports JPEG, PNG, GIF and SVG.
 
 ## Requirements
 
