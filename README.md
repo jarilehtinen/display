@@ -36,3 +36,7 @@ Please, use at your own risk.
 
 - Moved files around
 - Entering full screen mode now requires double-click
+
+**0.0.4**
+
+- Added image preloader
