@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+.display {
+    background-image: url(default.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: #eee;
+    background-position: center center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.display.dropping {
+    opacity: 0.5;
+}
