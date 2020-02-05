@@ -7,10 +7,10 @@ header('Content-Type: application/json');
 
 // Supported files
 $files = [
-    'image.jpg',
-    'image.png',
-    'image.gif',
-    'image.svg'
+    'images/image.jpg',
+    'images/image.png',
+    'images/image.gif',
+    'images/image.svg'
 ];
 
 // Collect file modification times
