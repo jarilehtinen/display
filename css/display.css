@@ -8,7 +8,7 @@ body {
 }
 
 .display {
-    background-image: url(../images/default.svg);
+    background-image: url('default.svg');
     background-size: cover;
     background-repeat: no-repeat;
     background-color: #eee;
