@@ -29,7 +29,7 @@ var upload = {
         $('.display').on('dragleave', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            display.reset();
+            $('.display').removeClass('dropping');
         });
 
         // Drop image event
@@ -40,18 +40,19 @@ var upload = {
             // Get dropped file
             var file = e.originalEvent.dataTransfer.files;
 
-            // Create form data
-            var formData = new FormData();
-            formData.append('file', file[0]);
-
             // Upload image
-            parent.uploadImage(formData);
+            parent.uploadImage(file);
         });
     },
 
-    uploadImage: function(formData) {
+    uploadImage: function(file) {
+        // Create form data
+        var formData = new FormData();
+        formData.append('file', file[0]);
+        formData.append('id', display.getDisplayId());
+
         $.ajax({
-            url: 'upload.php',
+            url: '/api/upload/',
             type: 'post',
             data: formData,
             contentType: false,
@@ -62,11 +63,9 @@ var upload = {
                     display.updateImage();
                     return;
                 }
-
-                display.reset();
             },
             error: function(result) {
-                display.reset();
+                $('.display').removeClass('dropping');
             }
         });
     }

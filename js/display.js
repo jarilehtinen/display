@@ -1,40 +1,49 @@
 var display = {
     lastUpdated: false,
-    updateInterval: 5, // seconds
+    updateInterval: 5, // seconds,
+    displayId: false,
 
     init: function() {
         var parent = this;
 
-        parent.updateImage();
+        parent.initDisplay();
+
+        $(window).on('hashchange', function() {
+            parent.initDisplay();
+        });
+    },
+
+    getDisplayId: function() {
+        return window.location.hash.replace('#', '');
+    },
+
+    initDisplay: function() {
+        var parent = this;
+
+        parent.lastUpdated = false;
+        parent.reset();
+
+        if (parent.getDisplayId()) {
+            displayList.hide();
+            parent.updateImage();
+            parent.initImageUpdater();
+            return;
+        }
+
+        displayList.show();
+    },
+
+    initImageUpdater: function() {
+        var parent = this;
 
         // Refresh image
         setInterval(function() {
             parent.updateImage();
         }, parent.updateInterval * 1000);
-
-        // Click anywhere to enter or exit full screen
-        $('.display').on('dblclick', function() {
-            if ($('.display').hasClass('is-full-screen')) {
-                parent.exitFullScreen();
-                return;
-            }
-
-            parent.enterFullScreen();
-        });
     },
 
-    enterFullScreen: function() {
-        var element = document.body;
-        var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
-        requestMethod.call(element);
-        $('.display').addClass('is-full-screen');
-    },
-
-    exitFullScreen: function() {
-        var element = document;
-        var requestMethod = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen;
-        requestMethod.call(element);
-        $('.display').removeClass('is-full-screen');
+    setDefaultImage: function() {
+        $('.display').css('background-image', 'url(/default.svg)');
     },
 
     updateImage: function() {
@@ -42,10 +51,14 @@ var display = {
 
         $.ajax({
             dataType: 'json',
-            url: 'ping.php',
+            data: {
+                id: parent.getDisplayId()
+            },
+            url: '/api/display/get/',
             success: function(file) {
                 // No file found
                 if (file.noFile) {
+                    parent.setDefaultImage();
                     return false;
                 }
 
@@ -55,33 +68,38 @@ var display = {
                 }
 
                 // Image has updated, preload it
-                parent.preloadImage(file);
+                parent.preload(file);
             }
         });
     },
 
-    preloadImage: function(file) {
+    preload: function(file) {
         var parent = this,
             img = $('<img>').attr('src', file.url);
 
         $(img).preload(function(percentage, done) {
             if (done) {
-                parent.renderImage(file);
+                parent.render(file);
             }
         });
     },
 
-    renderImage: function(file) {
+    render: function(file) {
         var parent = this;
 
         $('.display').css('background-image', 'url('+file.url+')');
-        parent.reset();
+        $('.display').removeClass('dropping');
 
         parent.lastUpdated = file.modified;
     },
 
+    remove: function() {
+        $('.display').css('background-image', 'none');
+    },
+
     reset: function() {
-        $('.display').removeClass('dropping');
+        var parent = this;
+        parent.remove();
     }
 };
 
