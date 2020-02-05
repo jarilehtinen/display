@@ -13,7 +13,7 @@ var display = {
         }, parent.updateInterval * 1000);
 
         // Click anywhere to enter or exit full screen
-        $('.display').on('click', function() {
+        $('.display').on('dblclick', function() {
             if ($('.display').hasClass('is-full-screen')) {
                 parent.exitFullScreen();
                 return;
