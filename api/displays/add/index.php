@@ -5,7 +5,8 @@ header('Cache-Control: no-cache, must-revalidate');
 header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 header('Content-Type: application/json');
 
-require_once('../../../lib/displays.php');
+require_once('../../../config.php');
+require_once(PATH.'/lib/displays.php');
 
 $displays = new Display\Displays;
 

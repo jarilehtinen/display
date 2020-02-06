@@ -11,8 +11,9 @@ if (!isset($_REQUEST['id'])) {
 }
 
 // Get displays class
-require_once('../../../lib/displays.php');
-require_once('../../../lib/display.php');
+require_once('../../../config.php');
+require_once(PATH.'/lib/displays.php');
+require_once(PATH.'/lib/display.php');
 
 $display = new Display\Display;
 $displays = new Display\Displays;
