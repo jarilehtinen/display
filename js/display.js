@@ -2,6 +2,7 @@ var display = {
     lastUpdated: false,
     updateInterval: 5, // seconds,
     displayId: false,
+    interval: false,
 
     init: function() {
         var parent = this;
@@ -23,27 +24,35 @@ var display = {
         parent.lastUpdated = false;
         parent.reset();
 
+        $('.display').removeClass('on-display');
+
+        if (parent.interval) {
+            clearInterval(parent.interval);
+        }
+
         if (parent.getDisplayId()) {
             displayList.hide();
+            $('.display').addClass('on-display');
             parent.updateImage();
             parent.initImageUpdater();
+            upload.initDisplayUpload();
             return;
         }
 
-        displayList.show();
+        displayList.build();
     },
 
     initImageUpdater: function() {
         var parent = this;
 
         // Refresh image
-        setInterval(function() {
+        parent.interval = setInterval(function() {
             parent.updateImage();
         }, parent.updateInterval * 1000);
     },
 
     setDefaultImage: function() {
-        $('.display').css('background-image', 'url(/default.svg)');
+        $('.display').css('background-image', 'url(/theme/default.svg)');
     },
 
     updateImage: function() {

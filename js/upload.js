@@ -12,28 +12,32 @@ var upload = {
             e.preventDefault();
             e.stopPropagation();
         });
+    },
+
+    initDisplayUpload: function() {
+        var parent = this;
 
         // Drop indicator
-        $('.display').on('dragenter', function(e) {
+        $('.on-display').on('dragenter', function(e) {
             e.preventDefault();
             e.stopPropagation();
             $('.display').addClass('dropping');
         });
 
-        $('.display').on('dragover', function(e) {
+        $('.on-display').on('dragover', function(e) {
             e.preventDefault();
             e.stopPropagation();
             $('.display').addClass('dropping');
         });
 
-        $('.display').on('dragleave', function(e) {
+        $('.on-display').on('dragleave', function(e) {
             e.preventDefault();
             e.stopPropagation();
             $('.display').removeClass('dropping');
         });
 
         // Drop image event
-        $('.display').on('drop', function(e) {
+        $('.on-display').on('drop', function(e) {
             e.stopPropagation();
             e.preventDefault();
 
@@ -45,11 +49,19 @@ var upload = {
         });
     },
 
-    uploadImage: function(file) {
+    uploadImage: function(file, displayId) {
+        if (!displayId) {
+            displayId = display.getDisplayId();
+        }
+
+        if (!displayId) {
+            return false;
+        }
+
         // Create form data
         var formData = new FormData();
         formData.append('file', file[0]);
-        formData.append('id', display.getDisplayId());
+        formData.append('id', displayId);
 
         $.ajax({
             url: '/api/upload/',
@@ -60,12 +72,19 @@ var upload = {
             dataType: 'json',
             success: function(result) {
                 if (result.ok) {
-                    display.updateImage();
+                    $('.dropping').removeClass('dropping');
+
+                    if (display.getDisplayId()) {
+                        display.updateImage();
+                    } else {
+                        displayList.build();    
+                    }
+
                     return;
                 }
             },
             error: function(result) {
-                $('.display').removeClass('dropping');
+                $('.dropping').removeClass('dropping');
             }
         });
     }
