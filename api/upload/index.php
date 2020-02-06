@@ -11,8 +11,9 @@ if (!isset($_REQUEST['id'])) {
 }
 
 // Get displays class
-require_once('../../lib/displays.php');
-require_once('../../lib/display.php');
+require_once('../../config.php');
+require_once(PATH.'/lib/displays.php');
+require_once(PATH.'/lib/display.php');
 
 $displays = new Display\Displays;
 $display = new Display\Display;
@@ -61,10 +62,10 @@ if (!$is_svg && !is_array(getimagesize($uploaded_file))) {
 }
 
 // Delete old files
-$display->removeImages($display_id);
+$displays->removeImages($display_id);
 
 // Move uploaded file
-$filename = '../../images/'.$display_id.'.'.$mime_types[$mime_type];
+$filename = PATH.'/images/'.$display_id.'.'.$mime_types[$mime_type];
 
 if (move_uploaded_file($uploaded_file, $filename)) {
     echo json_encode(['ok' => 1]);
