@@ -7,19 +7,26 @@ class Displays
     private $displays;
     private $config;
 
+    private $image_types = [
+        'jpg',
+        'png',
+        'gif',
+        'svg'
+    ];
+
     /**
      * Get config path
      */
     private function getConfigPath()
     {
         // Use config path resolver so we don't have to use a global config file
-        $config_path = '../../../config.json';
+        $config_path = PATH.'/config.json';
 
         if (file_exists($config_path)) {
             return $config_path;
         }
 
-        $config_path = '../../config.json';
+        $config_path = PATH.'/config.json';
         
         if (file_exists($config_path)) {
             return $config_path;
@@ -105,13 +112,36 @@ class Displays
     /**
      * Remove display
      */
-    public function removeDisplay($id)
+    public function removeDisplay($display_id)
     {
+        if (!$this->displayExists($display_id)) {
+            return false;
+        }
+
         $this->getDisplays();
 
-        unset($this->displays[$id]);
+        unset($this->displays[$display_id]);
 
         $this->updateConfig();
+
+        $this->removeImages($display_id);
+
+        return true;
+    }
+
+    /**
+     * Remove images
+     */
+    public function removeImages($display_id)
+    {
+        // Get image
+        foreach ($this->image_types as $image_type) {
+            $file = PATH.'/images/'.$display_id.'.'.$image_type;
+
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
     }
 
     /**
