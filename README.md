@@ -55,3 +55,7 @@ Please, use at your own risk.
 **0.0.5**
 
 - Added support for multiple displays
+
+**0.0.6**
+
+- Added sample configuration file
