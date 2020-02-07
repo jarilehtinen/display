@@ -72,6 +72,10 @@ Please, use at your own risk.
 
 - Some more responsiveness fixing. Details matter, eh?
 
+**0.1.0**
+
+- Oh, forgot about the 200 px wide screens. Umm... Right.
+
 ## Thanks
 
 - Icons from Entypo http://entypo.com
