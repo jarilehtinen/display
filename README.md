@@ -68,6 +68,10 @@ Please, use at your own risk.
 
 - Fixed broken full screen view. Huh.
 
+**0.0.9**
+
+- Some more responsiveness fixing. Details matter, eh?
+
 ## Thanks
 
 - Icons from Entypo http://entypo.com
