@@ -64,6 +64,10 @@ Please, use at your own risk.
 
 - Improved responsiveness on display list view
 
+**0.0.8**
+
+- Fixed broken full screen view. Huh.
+
 ## Thanks
 
 - Icons from Entypo http://entypo.com
