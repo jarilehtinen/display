@@ -110,7 +110,7 @@ var displayList = {
         parent.totalDisplays = totalDisplays;
 
         // Add display button
-        $('.display-list').append('<button class="add-display"><span>Add Display</span></button>');
+        $('.display-list').append('<button class="add-display"><span class="add-display-text">Add Display</span></button>');
         
         // Drop to list
         $('.display-list-item').on('drop', function(e) {
