@@ -59,3 +59,11 @@ Please, use at your own risk.
 **0.0.6**
 
 - Added sample configuration file
+
+**0.0.7**
+
+- Improved responsiveness on display list view
+
+## Thanks
+
+- Icons from Entypo http://entypo.com
