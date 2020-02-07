@@ -1,4 +1,6 @@
 var displayList = {
+    totalDisplays: 0,
+
     build: function() {
         var parent = this;
 
@@ -96,16 +98,16 @@ var displayList = {
 
         // Total displays
         var totalDisplays = $('.display-list-item').length;
-        
-        if (totalDisplays > 3) {
-            totalDisplays = 3;
+        $('.display-list').removeClass('displays-'+parent.totalDisplays);
+        $('.display-list').addClass('displays-'+totalDisplays);
+
+        if (totalDisplays > 6) {
+            $('.display-list').addClass('many-displays');
+        } else {
+            $('.display-list').removeClass('many-displays');
         }
 
-        $('.display-list').removeClass('displays-0');
-        $('.display-list').removeClass('displays-1');
-        $('.display-list').removeClass('displays-2');
-        $('.display-list').removeClass('displays-3');
-        $('.display-list').addClass('displays-'+totalDisplays);
+        parent.totalDisplays = totalDisplays;
 
         // Add display button
         $('.display-list').append('<button class="add-display"><span>Add Display</span></button>');
