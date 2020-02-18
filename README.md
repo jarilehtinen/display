@@ -14,16 +14,6 @@ Fox maximum user experience, open index.html on another display. It syncs the im
 
 Supports JPEG, PNG, GIF and SVG.
 
-## Installation
-
-Create ```/config.php``` file containing:
-
-```php
-<?php
-
-define('PATH', '/path/in/your/server');
-```
-
 ## Requirements
 
 - PHP

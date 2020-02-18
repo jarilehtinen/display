@@ -11,7 +11,7 @@ if (!isset($_REQUEST['id'])) {
 }
 
 // Get displays class
-require_once('../../config.php');
+require_once('../../loader.php');
 require_once(PATH.'/lib/displays.php');
 require_once(PATH.'/lib/display.php');
 
